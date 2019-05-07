@@ -1,0 +1,66 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE';
+	}
+                
+    repositories {
+        mavenLocal()
+        mavenCentral()       
+    }
+    
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    apply plugin: 'eclipse'
+	apply plugin: 'idea'
+	apply plugin: 'org.springframework.boot'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+sourceSets.main.java.srcDirs "src/generated-sources/java"
+sourceSets.main.resources.excludes = ['temperature.xsd']
+
+configurations {
+    jaxb
+}
+
+repositories {
+    mavenLocal()
+	mavenCentral()
+}
+    
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web-services:${springBootVersion}")
+	compile("wsdl4j:wsdl4j:1.6.2")
+    jaxb (
+        'com.sun.xml.bind:jaxb-xjc:2.2.7',
+        'com.sun.xml.bind:jaxb-impl:2.2.7'
+    )
+}
+
+task jaxb {
+    System.setProperty('javax.xml.accessExternalSchema', 'all')
+    def jaxbTargetDir = file("src/generated-sources/java")
+    doLast {
+        jaxbTargetDir.mkdirs()
+        ant.taskdef(
+                name: 'xjc',
+            classname: 'com.sun.tools.xjc.XJCTask',
+            classpath: configurations.jaxb.asPath
+        )
+        
+        ant.jaxbTargetDir = jaxbTargetDir
+        ant.xjc(
+            destdir: '${jaxbTargetDir}',
+            package: 'com.jeejava.jaxb',
+            schema: 'src/main/resources/xsd/temperature.xsd'
+        )
+    }
+}
+
+compileJava.dependsOn jaxb

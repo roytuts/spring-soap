@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.example.com/TemperatureService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.com/TemperatureService" targetNamespace="http://www.example.com/TemperatureService">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com/TemperatureService">
+	<xs:element name="GetCelsiusRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="celcius" type="xs:double"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetCelsiusResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fahrenheit" type="xs:double"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCelsiusResponse">
+    <wsdl:part element="tns:GetCelsiusResponse" name="GetCelsiusResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCelsiusRequest">
+    <wsdl:part element="tns:GetCelsiusRequest" name="GetCelsiusRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TempPort">
+    <wsdl:operation name="GetCelsius">
+      <wsdl:input message="tns:GetCelsiusRequest" name="GetCelsiusRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetCelsiusResponse" name="GetCelsiusResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TempPortSoap11" type="tns:TempPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetCelsius">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetCelsiusRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetCelsiusResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TempPortService">
+    <wsdl:port binding="tns:TempPortSoap11" name="TempPortSoap11">
+      <soap:address location="https://localhost:8443/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
