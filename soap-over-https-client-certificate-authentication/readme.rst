@@ -1,1 +1,0 @@
-You can read tutorial https://www.jeejava.com/soap-over-https-with-client-certificate-authentication/
