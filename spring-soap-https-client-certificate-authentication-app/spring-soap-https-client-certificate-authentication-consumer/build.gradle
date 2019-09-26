@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        mavenCentral()
+		jcenter()
+    }
+    dependencies {
+        classpath 'no.nils:wsdl2java:0.10'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'no.nils.wsdl2java'
+
+sourceCompatibility = 12
+targetCompatibility = 12
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	wsdl2java('com.sun.xml.bind:jaxb-xjc:2.4.0-b180830.0438')
+	wsdl2java('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
+	wsdl2java('org.apache.cxf:cxf-rt-wsdl:3.2.7')
+	wsdl2java('javax.xml.ws:jaxws-api:2.3.1')
+	wsdl2java('javax.jws:javax.jws-api:1.1')
+	
+	implementation('org.apache.cxf:cxf-rt-frontend-jaxws:3.3.3')
+	implementation('org.apache.cxf:cxf-rt-transports-http:3.3.3')
+	implementation('com.sun.xml.bind:jaxb-xjc:2.4.0-b180830.0438')
+    implementation('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
+    implementation('org.apache.cxf:cxf-rt-wsdl:3.2.7')
+    implementation('javax.xml.ws:jaxws-api:2.3.1')
+    implementation('javax.jws:javax.jws-api:1.1')
+    implementation('javax.activation:activation:1.1.1')
+}
+
+wsdl2javaExt {
+	cxfVersion = "3.1.10"
+}
+
+wsdl2java{
+	generatedWsdlDir = file("${projectDir}/src/main/service")
+	wsdlDir=file("${projectDir}/src/main/resources/wsdl/")
+	wsdlsToGenerate = [
+		[file("${projectDir}/src/main/resources/wsdl/temp.wsdl")]
+	]
+}
+
+compileJava.dependsOn wsdl2java
