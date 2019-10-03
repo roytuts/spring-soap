@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.8.RELEASE'
+	}
+	
+    repositories {
+    	mavenLocal()
+    	mavenCentral()
+    }
+    
+    dependencies {
+    	classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 12
+targetCompatibility = 12
+
+repositories {
+    mavenLocal()
+	mavenCentral()
+	maven {
+		url 'http://maven.java.net/content/repositories/staging/'
+	}
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	implementation 'org.apache.cxf:cxf-spring-boot-starter-jaxws:3.3.3'
+	/*implementation('org.jvnet.jax-ws-commons.spring:jaxws-spring:1.9') {
+		exclude group: 'javax.servlet', module: 'servlet-api'
+	}*/
+	implementation 'javax.xml.ws:jaxws-api:2.3.1'
+    implementation 'com.sun.xml.ws:jaxws-rt:2.3.1'
+    implementation 'org.glassfish.jaxb:txw2:2.4.0-b180608.0325'
+}
