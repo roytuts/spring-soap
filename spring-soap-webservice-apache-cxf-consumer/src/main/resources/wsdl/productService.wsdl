@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.cxf.apache.webservice.soap.spring.roytuts.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="productService" targetNamespace="http://service.cxf.apache.webservice.soap.spring.roytuts.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.cxf.apache.webservice.soap.spring.roytuts.com/" elementFormDefault="unqualified" targetNamespace="http://service.cxf.apache.webservice.soap.spring.roytuts.com/" version="1.0">
+
+  <xs:element name="getAllProducts" type="tns:getAllProducts"/>
+
+  <xs:element name="getAllProductsResponse" type="tns:getAllProductsResponse"/>
+
+  <xs:element name="getProduct" type="tns:getProduct"/>
+
+  <xs:element name="getProductResponse" type="tns:getProductResponse"/>
+
+  <xs:complexType name="getAllProducts">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getAllProductsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:product"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="product">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="productCatg" type="xs:string"/>
+      <xs:element name="productId" type="xs:int"/>
+      <xs:element minOccurs="0" name="productName" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getProduct">
+    <xs:sequence>
+      <xs:element name="productId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getProductResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:product"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getAllProducts">
+    <wsdl:part element="tns:getAllProducts" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getProduct">
+    <wsdl:part element="tns:getProduct" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getProductResponse">
+    <wsdl:part element="tns:getProductResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllProductsResponse">
+    <wsdl:part element="tns:getAllProductsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ProductService">
+    <wsdl:operation name="getAllProducts">
+      <wsdl:input message="tns:getAllProducts" name="getAllProducts">
+    </wsdl:input>
+      <wsdl:output message="tns:getAllProductsResponse" name="getAllProductsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProduct">
+      <wsdl:input message="tns:getProduct" name="getProduct">
+    </wsdl:input>
+      <wsdl:output message="tns:getProductResponse" name="getProductResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="productServiceSoapBinding" type="tns:ProductService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getAllProducts">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllProducts">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllProductsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProduct">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getProduct">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getProductResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="productService">
+    <wsdl:port binding="tns:productServiceSoapBinding" name="ProductServiceImplPort">
+      <soap:address location="http://localhost:8080/api/productService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

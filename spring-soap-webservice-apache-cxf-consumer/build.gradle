@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+    	mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'no.nils:wsdl2java:0.12'
+    }
+}
+
+plugins {
+    id 'java-library'
+    id 'no.nils.wsdl2java' version "0.12"
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 12
+targetCompatibility = 12
+
+configurations {
+    cxf
+}
+
+wsdl2java {
+	wsdlDir=file("${projectDir}/src/main/resources/wsdl/")
+	wsdlsToGenerate = [
+		[file("${projectDir}/src/main/resources/wsdl/productService.wsdl")]
+	]
+	locale = Locale.ENGLISH
+}
+
+dependencies {
+	cxf 'org.apache.cxf:cxf-rt-frontend-jaxws:3.3.7'
+	cxf 'org.apache.cxf:cxf-rt-transports-http:3.3.7'
+	
+	implementation 'com.sun.activation:javax.activation:1.2.0'
+	implementation 'org.apache.cxf:cxf-rt-frontend-jaxws:3.3.7'
+	implementation 'org.apache.cxf:cxf-rt-transports-http:3.3.7'
+	implementation 'org.jvnet.jaxb2_commons:jaxb2-basics-runtime:1.11.1'
+	
+	wsdl2java 'org.jvnet.jaxb2_commons:jaxb2-basics-runtime:1.11.1'
+    wsdl2java 'org.jvnet.jaxb2_commons:jaxb2-basics:1.11.1'
+}
