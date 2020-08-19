@@ -3,11 +3,8 @@ package com.roytuts.spring.soap.webservice.apache.cxf.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.roytuts.spring.soap.webservice.apache.cxf.dto.Product;
 
-@Repository
 public class ProductDao {
 
 	List<Product> productList = new ArrayList<Product>();
