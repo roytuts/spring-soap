@@ -4,16 +4,17 @@ import java.util.List;
 
 import javax.jws.WebService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.roytuts.spring.soap.webservice.apache.cxf.dao.ProductDao;
 import com.roytuts.spring.soap.webservice.apache.cxf.dto.Product;
 
 @WebService(endpointInterface = "com.roytuts.spring.soap.webservice.apache.cxf.service.ProductService", serviceName = "productService")
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
 	private ProductDao dao;
+
+	public ProductServiceImpl() {
+		dao = new ProductDao();
+	}
 
 	@Override
 	public List<Product> getAllProducts() {
