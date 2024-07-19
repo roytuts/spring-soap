@@ -1,1 +1,1 @@
-You can go through the tutorial https://www.roytuts.com/create-soap-webservice-using-apache-cxf-spring/
+Please follow the tutorial https://roytuts.com/create-soap-webservice-using-apache-cxf-spring/
